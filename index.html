@@ -15,7 +15,7 @@
         <hr>
         <div>
           <h1>Set Timer:</h1>
-          <form>
+          <form id="timerForm">
             <label>
               Minute
               <input type="number" 
@@ -87,8 +87,8 @@
       render()
       store.subscribe(render)
 
-      document.getElementById('button-timer')
-        .addEventListener('click', function (e) {
+      document.getElementById('timerForm')
+        .addEventListener('submit', function (e) {
           e.preventDefault()
           resetTimer()
 
