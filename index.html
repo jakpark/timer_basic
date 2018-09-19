@@ -89,18 +89,25 @@
 
       document.getElementById('button-timer')
         .addEventListener('click', function (e) {
-          e.preventDefault();
           resetTimer()
 
-          const min = parseInt(document.getElementById('input-minute').value) || 0
-          const sec = parseInt(document.getElementById('input-second').value) || 0
+          const inputMin = document.getElementById('input-minute')
+          const inputSec = document.getElementById('input-second')
+
+          if (!inputMin.checkValidity()) {
+            return
+          }
+          if (!inputSec.checkValidity()) {
+            return
+          }
+          const min = parseInt(inputMin.value) || 0
+          const sec = parseInt(inputSec.value) || 0
 
           totalTime = min * 60 + sec
 
           store.dispatch({ type: 'SET_TIME'})
 
           timerInterval = setInterval(function () {
-            
             store.dispatch({ type: 'START_TIMER' })
           }, 1000)
         })
