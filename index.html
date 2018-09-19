@@ -8,13 +8,13 @@
     <div>
       <p>
         <h1>
-          Timer left (HH:MM): 
+          Time left (HH:MM): 
         </h1>
         <span id="timer-display">00:00</span>
 
         <hr>
         <div>
-          <h1>Input Time:</h1>
+          <h1>Set Timer:</h1>
           <form>
             <label>
               Minute
@@ -52,18 +52,18 @@
             return state
         }
       }
+
       const store = Redux.createStore(timer)
       const timerDisplay = document.getElementById('timer-display')
 
-      let timerInterval, totalTime
+      let timerInterval
+      let totalTime
       
       const resetTimer = () => {
         if (timerInterval !== undefined){
           clearInterval(timerInterval)
         }
       }
-
-
 
       function render() {
         const totalTime = store.getState()
@@ -89,6 +89,7 @@
 
       document.getElementById('button-timer')
         .addEventListener('click', function (e) {
+          e.preventDefault()
           resetTimer()
 
           const inputMin = document.getElementById('input-minute')
