@@ -7,7 +7,10 @@
   <body style="text-align: center; width: 90%; margin: 0 auto;">
     <div>
       <p>
-        Timer Countdown (HH:MM): <span id="timer-display">00:00</span>
+        <h1>
+          Timer left (HH:MM): 
+        </h1>
+        <span id="timer-display">00:00</span>
 
         <hr>
         <div>
@@ -17,14 +20,14 @@
               Minute
               <input type="number" 
                      id="input-minute"
-                     name="mins" 
+                     name="mins"
                      value={this.state.mins} min="0" max="15"/>
             </label>
             <label>
               Seconds
               <input type="number" 
                      id="input-second"
-                     name="secs"  
+                     name="secs"
                      value={this.state.secs} min="0" max="60"/>
             </label>
             <hr/>
@@ -55,16 +58,16 @@
       let timerInterval, totalTime
       
       const resetTimer = () => {
-        console.log('resetTimer')
-        
         if (timerInterval !== undefined){
           clearInterval(timerInterval)
         }
       }
 
+
+
       function render() {
         const totalTime = store.getState()
-        if ( totalTime <= 0 ) {
+        if ( totalTime < 0 ) {
           clearInterval(timerInterval)
         } else {
           let mins = Math.floor(totalTime / 60)
@@ -86,11 +89,11 @@
 
       document.getElementById('button-timer')
         .addEventListener('click', function (e) {
-          e.preventDefault()
+          e.preventDefault();
           resetTimer()
 
-          const min = parseInt(document.getElementById('input-minute').value)
-          const sec = parseInt(document.getElementById('input-second').value)
+          const min = parseInt(document.getElementById('input-minute').value) || 0
+          const sec = parseInt(document.getElementById('input-second').value) || 0
 
           totalTime = min * 60 + sec
 
