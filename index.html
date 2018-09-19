@@ -45,9 +45,9 @@
         }
         switch (action.type) {
           case 'START_TIMER':
-            return state - 1
-          case 'SET_TIME':
             return state = totalTime
+          case 'DECREMENT':
+            return state - 1
           default:
             return state
         }
@@ -106,10 +106,10 @@
 
           totalTime = min * 60 + sec
 
-          store.dispatch({ type: 'SET_TIME'})
+          store.dispatch({ type: 'START_TIMER'})
 
           timerInterval = setInterval(function () {
-            store.dispatch({ type: 'START_TIMER' })
+            store.dispatch({ type: 'DECREMENT' })
           }, 1000)
         })
     </script>
