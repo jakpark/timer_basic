@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timer basic</title>
+    <script src="https://unpkg.com/redux@latest/dist/redux.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <p>
+        Timer Countdown (HH:MM): <span id="value">0:0</span>
+
+        <button id="button-timer">Start Timer</button>
+      </p>
+    </div>
+    <script>
+      function timer(state, action) {
+        if (typeof state === 'undefined') {
+          return 0
+        }
+        switch (action.type) {
+          case 'START_TIMER':
+            return state - 1
+          default:
+            return state
+        }
+      }
+      var store = Redux.createStore(timer)
+      var valueEl = document.getElementById('value')
+      function render() {
+        const totalTime = store.getState();
+        let secs = Math.floor(totalTime / 60);
+        let mins = Math.floor(totalTime % 60);
+
+        if ( mins < 10 ) {
+          mins = "0" + mins;
+        }
+
+        if ( secs < 10 ) {
+          secs = "0" + secs;
+        }
+
+        valueEl.innerHTML = `${mins}:${secs}`
+      }
+      render()
+      store.subscribe(render)
+
+      document.getElementById('button-timer')
+        .addEventListener('click', function () {
+
+          setInterval(function () {
+            store.dispatch({ type: 'START_TIMER' })
+          }, 1000)
+        })
+    </script>
+  </body>
+</html>
